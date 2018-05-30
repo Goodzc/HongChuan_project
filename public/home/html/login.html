@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" class="fullscreen-bg">
+<head>
+    <title>出库管理</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/home/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/home/vendor/sweetalert2/sweetalert2.css">
+    <link rel="stylesheet" href="/home/css/login.css">
+    <style>
+        .content {
+            width: 50%!important;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+<div id="container">
+    <div class="right">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="header">
+                <div class="logo text-center">
+                    <img src="/home/imgs/logo@3x.png" alt="酒商圈" width="100%">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="signin-email" class="control-label sr-only">Email</label>
+                <input type="email" class="form-control" id="signin-email" name="user" placeholder="用户名">
+            </div>
+            <div class="form-group">
+                <label for="signin-password" class="control-label sr-only">Password</label>
+                <input type="password" class="form-control" id="signin-password" name="password" placeholder="密码">
+            </div>
+            <button type="button" class="btn btn-primary btn-lg btn-block" onclick="login()">登录</button>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+</body>
+</html>
+<!--第三方插件-->
+<script src="/home/vendor/jquery/jquery.js"></script>
+<script src="/home/vendor/sweetalert2/sweetalert2.js"></script>
+<script src="/home/vendor/jquery/jquery.min.js"></script>
+<!--公用js-->
+<script src="/home/script/common.js"></script>
+<!--页面js-->
+<script src="/home/script/login.js"></script>
+
+<script type="text/javascript">
+    // 点击登陆按钮，检验用户输入
+    $('.btn-primary').click(function () {
+        if (user == '' || password == '') {
+            swal({
+                title: "警告!",
+                text: "请输入用户名或密码",
+                type: "warning",
+                showConfirmButton: false
+            });
+        } else {
+            var user = $('input[name=user]').val();
+            var password = $('input[name=password]').val();
+            var mydata = {
+                user: user,
+                password: password
+            }
+            /* common_ajax("post","/ad/login",mydata,true,false,get_error,getmerchants_success);
+             //请求错误回调函数
+             function  get_error() {
+                 swal({
+                     title: "请求失败!",
+                     text: "网络错误",
+                     type: "error",
+                     showConfirmButton: false
+                 });
+                 setTimeout(function(){
+                     swal.close();
+                 },1500);
+             }
+             //状态成功数据绑定
+             function  getmerchants_success(data) {
+                 if (data.result == "success") {
+                     swal({
+                         title: "成功",
+                         text: data.msg,
+                         type: "success",
+                         showConfirmButton: false
+                     });
+                     setTimeout(function () {
+                         location.href = "/ad/";
+                     }, 1500);
+                 } else if (data.result == "fail") {
+                     swal({
+                         title: "错误",
+                         text: data.msg,
+                         type: "error",
+                         showConfirmButton: false
+                     })
+                 }
+             }*/
+        }
+    });
+</script>

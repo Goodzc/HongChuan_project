@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>出库</title>
+    <link rel="stylesheet" href="/home/css/home_page.css">
+    <link rel="stylesheet" href="/home/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/home/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/home/vendor/sweetalert2/sweetalert2.css">
+    <link rel="stylesheet" href="/home/vendor/layer/skin/layer.css">
+</head>
+<body>
+<div class="header">
+    <div class="row" style="margin: 0!important;">
+        <div class="col-sm-4">
+            <img class="company_logo" src="/home/imgs/logo@3x.png"/>
+        </div>
+        <div class="col-sm-8 tr">
+            <span id="last-upload-time">上次同步时间：</span>
+            <button class="sub_top" onclick="uploadServer()">上传服务器</button>
+            <span id="warehouse">库房：默认</span>
+            <span>|</span>
+            <span id="manager-name">出库人：黄梅</span>
+            <span id="login-out" onclick="loginLout()">退出</span>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="left col-sm-2">
+            <div class="company_search f14">
+                <div class="tl search_box on" onclick="changeShow($(this))">
+                    <span class="search_icon "></span>
+                    搜索商户
+                </div>
+                <input class="search_input tl" type="text" placeholder="搜索商户">
+            </div>
+            <ul class="company_list">
+                  <!--<li class="row" onclick="change_state($('.content_company'),$('.search_show'))">
+                      <div class="col-sm-4 company_code">0001</div>
+                      <div class="col-sm-8 company_name">北京宏川久酒</div>
+                  </li>
+                  <li class="row">
+                      <div class="col-sm-4 company_code">0001</div>
+                      <div class="col-sm-8 company_name">北京宏川久酒</div>
+                  </li>
+                  <li class="row">
+                      <div class="col-sm-4 company_code">0001</div>
+                      <div class="col-sm-8 company_name">北京宏川久酒</div>
+                  </li>
+                  <li class="row">
+                      <div class="col-sm-4 company_code">0001</div>
+                      <div class="col-sm-8 company_name">北京宏川久酒</div>
+                  </li>
+                  <li class="row">
+                      <div class="col-sm-4 company_code">0001</div>
+                      <div class="col-sm-8 company_name">北京宏川久酒</div>
+                  </li>
+                  <li class="row">
+                      <div class="col-sm-4 company_code">0001</div>
+                      <div class="col-sm-8 company_name">北京宏川久酒</div>
+                  </li>
+                  <li class="row">
+                      <div class="col-sm-4 company_code">0001</div>
+                      <div class="col-sm-8 company_name">北京宏川久酒</div>
+                  </li>
+                  <li class="row">
+                      <div class="col-sm-4 company_code">0001</div>
+                      <div class="col-sm-8 company_name">北京宏川久酒</div>
+                  </li>
+                  <li class="row">
+                      <div class="col-sm-4 company_code">0001</div>
+                      <div class="col-sm-8 company_name">北京宏川久酒</div>
+                  </li>
+                  <li class="row">
+                      <div class="col-sm-4 company_code">0001</div>
+                      <div class="col-sm-8 company_name">北京宏川久酒</div>
+                  </li>
+                  <li class="row">
+                      <div class="col-sm-4 company_code">0001</div>
+                      <div class="col-sm-8 company_name">北京宏川久酒</div>
+                  </li>
+                  <li class="row">
+                      <div class="col-sm-4 company_code">0001</div>
+                      <div class="col-sm-8 company_name">天津开发区乾泰贸易</div>
+                  </li>
+                  <li class="row">
+                      <div class="col-sm-4 company_code">0001</div>
+                      <div class="col-sm-8 company_name">北京宏川久酒</div>
+                  </li>
+                  <li class="row">
+                      <div class="col-sm-4 company_code">0001</div>
+                      <div class="col-sm-8 company_name">北京宏川久酒</div>
+                  </li>
+                  <li class="row">
+                      <div class="col-sm-4 company_code">0001</div>
+                      <div class="col-sm-8 company_name">北京宏川久酒</div>
+                  </li>
+                  <li class="row">
+                      <div class="col-sm-4 company_code">0001</div>
+                      <div class="col-sm-8 company_name">北京宏川久酒</div>
+                  </li>
+                  <li class="row">
+                      <div class="col-sm-4 company_code">0001</div>
+                      <div class="col-sm-8 company_name">北京宏川久酒</div>
+                  </li>
+                  <li class="row">
+                      <div class="col-sm-4 company_code">0001</div>
+                      <div class="col-sm-8 company_name">北京宏川久酒</div>
+                  </li>-->
+            </ul>
+            <button class="create_shop"><span class="f18" style="margin-right: 5px">+</span>新建商户</button>
+        </div>
+        <div class="right col-sm-10">
+            <div class="content_head">
+                <div class="col-sm-3">
+                    <div class="input-group input-append date form_datetime">
+                        <input type="text" class="form-control start_time" value="" readonly>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"><i
+                                    class="add-on glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-1">至</div>
+                <div class="col-sm-3">
+                    <div class="input-group input-append date form_datetime">
+                        <input type="text" class="form-control end_time" value="" readonly>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"><i
+                                    class="add-on glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <button class="time_search" onclick="time_search()">查询</button>
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control out_code" id="" placeholder="搜索关键字">
+                        <span class="input-group-btn">
+                    <button class="btn btn-default input_for" type="button" onclick="time_search()">搜索</button>
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <div class="code_input" style="width: 50%;margin: 10px auto;display: none">
+                <div class="input-group" style="width: 100%">
+                    <input type="text" class="form-control out_code" id="barCode" placeholder="扫描条码" >
+                </div>
+            </div>
+            <div class="content_company">
+                <div class="col-sm-6 com_title">
+                    <p>购货单位 <span class="store_name"></span></p>
+                    <p class="time" id="timer"></p>
+                </div>
+                <div class="col-sm-6 store_code">
+                    <!--<span>编号01201805080002</span>-->
+                    <button class="btn btn-default btn-return" onclick="window.location.reload()">返回查询</button>
+                    <button class="out_success" onclick="confirmOut()">完成出库</button>
+                </div>
+            </div>
+            <div class="search_show on" style="margin-bottom: 30px">
+                <div class="commodity_info">
+                    <div class="time_show"><span class="time_start">2018-5-8</span>~<span class="time_end">2018-5-9</span></div>
+                    <div class="table">
+                        <div class="table_head">
+                            <div class="col-sm-2">编号</div>
+                            <div class="col-sm-2">经销商</div>
+                            <div class="col-sm-2">库房</div>
+                            <div class="col-sm-1">出库员</div>
+                            <div class="col-sm-1">件数</div>
+                            <div class="col-sm-2">金额</div>
+                            <div class="col-sm-2">出库时间</div>
+                        </div>
+
+                        <ul class="code_content out_list">
+                            <!--<li>
+                                <div class="col-sm-2">01201804140001</div>
+                                <div class="col-sm-2">中江咏春</div>
+                                <div class="col-sm-1">默认</div>
+                                <div class="col-sm-1">黄梅</div>
+                                <div class="col-sm-2">412</div>
+                                <div class="col-sm-2">0.00</div>
+                                <div class="col-sm-2">2018-04-14 16:30:23</div>
+                            </li>
+                            <li>
+                                <div class="col-sm-2">01201803310001</div>
+                                <div class="col-sm-2">成都久久缘商贸</div>
+                                <div class="col-sm-1">默认</div>
+                                <div class="col-sm-1">黄梅</div>
+                                <div class="col-sm-2">412</div>
+                                <div class="col-sm-2">0.00</div>
+                                <div class="col-sm-2">2018-04-14 16:30:23</div>
+                            </li>-->
+                        </ul>
+                        <div class="table_head">
+                            <div class="col-sm-2">合计:</div>
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-1 out_list_box_count"></div>
+                            <div class="col-sm-2">0.00</div>
+                            <div class="col-sm-2"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="commodity_info">
+                <div class="table">
+                    <div class="table_head">
+                        <div class="col-sm-2">品种</div>
+                        <div class="col-sm-1">度数</div>
+                        <div class="col-sm-1">容量</div>
+                        <div class="col-sm-2">规格</div>
+                        <div class="col-sm-2">件数</div>
+                        <div class="col-sm-2">单价</div>
+                        <div class="col-sm-2">金额</div>
+                    </div>
+
+                    <ul class="code_statistics code_content">
+                       <!-- <li>
+                            <div class="col-sm-2">五粮春</div>
+                            <div class="col-sm-1">45</div>
+                            <div class="col-sm-1">500</div>
+                            <div class="col-sm-1">1*6</div>
+                            <div class="col-sm-1">42</div>
+                            <div class="col-sm-2">0.00</div>
+                            <div class="col-sm-2">0.00</div>
+                            <div class="col-sm-2"></div>
+                        </li>
+                        <li>
+                            <div class="col-sm-2">五粮春</div>
+                            <div class="col-sm-1">45</div>
+                            <div class="col-sm-1">500</div>
+                            <div class="col-sm-1">1*6</div>
+                            <div class="col-sm-1">42</div>
+                            <div class="col-sm-2">0.00</div>
+                            <div class="col-sm-2">0.00</div>
+                            <div class="col-sm-2"></div>
+                        </li>-->
+                    </ul>
+                    <div class="table_head">
+                        <div class="col-sm-2">合计</div>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-2 goods-box_count"></div>
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="code_info f12">
+                <div class="col-sm-8">
+                    <span>共计扫码 <b class="total_piece">0</b> 件</span>
+                    <span>已保存 <b class="saved_code">0</b> 件条码</span>
+                    <span>未保存 <b class="unsaved">0</b> 件条码件</span>
+                </div>
+                <div class="col-sm-4" id="save-code">
+                    <button class="manual entry" onclick="manual_entry()">手动录入</button>
+                    <button class="preservation entry" onclick="save_locl()">保存</button>
+                </div>
+                <div class="col-sm-4" id="print-code">
+                    <button class="preservation entry" onclick="openToPrintCode()">打印</button>
+                </div>
+            </div>
+            <div class="commodity_info" id="print-container">
+                <div class="table">
+                    <div class="table_head">
+                        <div class="delete_all col-sm-1" onclick="delete_all()"><img src="/home/imgs/delete@3x.png" height="20px"
+                                                              width="20px"/></div>
+                        <div class="col-sm-1">排序</div>
+                        <div class="col-sm-3">箱码</div>
+                        <div class="col-sm-1 code-status">状态</div>
+                        <div class="col-sm-2">品种</div>
+                        <div class="col-sm-1">度数</div>
+                        <div class="col-sm-1">容量</div>
+                        <div class="col-sm-1">规格</div>
+                        <div class="col-sm-2">扫码时间</div>
+                    </div>
+                    <ul class="code_content code_list" style="max-height: 440px;min-height: 300px;" id="print-container-ul">
+                       <!-- <li>
+                            <div class="delete col-sm-1"><i class="glyphicon glyphicon-trash"></i></div>
+                            <div class="col-sm-1">1</div>
+                            <div class="col-sm-3"><input class="code_input" type="text" maxlength="24" value="123456789123456789123456"></div>
+                            <div class="col-sm-1"><span>重复</span></div>
+                            <div class="col-sm-1">五粮春</div>
+                            <div class="col-sm-1">45</div>
+                            <div class="col-sm-1">500</div>
+                            <div class="col-sm-1">1*6</div>
+                            <div class="col-sm-2">2018-5-8 19:20:30</div>
+                        </li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--新建商户-->
+<div class="create_merchant">
+    <div class="create_box">
+        <div class="create_title">
+            新建商户
+        </div>
+        <div class="merchant_name">
+            <input type="text" name="merchant_name" placeholder="商户名称">
+        </div>
+        <div class="number">
+            <input type="tel" name='tel' placeholder="联系方式" maxlength="11">
+        </div>
+        <div>
+            <input class="create_submit" type="submit" placeholder="确定" onclick="createMerchant()">
+        </div>
+        <div><span class="glyphicon glyphicon-remove-sign close_icon"></span></div>
+    </div>
+</div>
+<!--更改条码-->
+
+<!--<video class="audio" style="display: none" controls="" autoplay="" name="media"><source src="/home/imgs/prompt.wav" type="audio/mpeg"></video>-->
+<script src="/home/script/manager.js"></script>
+<script src="/home/vendor/jquery/jquery.js"></script>
+<script src="/home/vendor/jquery/jquery.min.js"></script>
+<script src="/home/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="/home/vendor/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+<script src="/home/vendor/sweetalert2/sweetalert2.js"></script>
+<script src="/home/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="/home/vendor/layer/layer.js"></script>
+<script src="/home/vendor/jquery.barcode.js"></script>
+<!--公用js-->
+<script src="/home/script/common.js"></script>
+<!--页面js-->
+<script src="/home/script/home_page.js"></script>
+<script src="/home/script/jquery-migrate-1.0.0.js"></script>
+<script src="/home/script/jquery.jqprint-0.3.js"></script>
+<script type="text/javascript">
+    $(".form_datetime").datepicker({
+        format: "yyyy-mm-dd"
+    });
+</script>
+</body>
+</html>
